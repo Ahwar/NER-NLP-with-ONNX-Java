@@ -66,9 +66,10 @@ public class Main {
             /*
              * Create dummy input and convert to OnnxTensor
              * */
-            // dummy inputs
-            long[][] inputArray = new long[1][20];
-            // create tensor
+            // modify Encoded Ids according to the model requirement
+            long[][] inputArray = new long[1][inputIds.length];
+            System.arraycopy(inputIds, 0, inputArray[0], 0, inputIds.length);
+            // create OnnxTensor
             OnnxTensor inputTensor = OnnxTensor.createTensor(env, inputArray);
             // map inputTensor according to model Input
             var model_inputs = Map.of("input_ids", inputTensor);
