@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae2faf79-95ea-4c7e-930d-55231eec0a14" name="Changes" comment="feat: loaded onnx model&#10;&#10;loaded roberta model using onnx runtime">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/building-project.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/run-code.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/ahwar/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/ahwar/Main.java" afterDir="false" />
@@ -41,6 +43,14 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\pakle\IdeaProjects\onnx-rt\raw-files" />
+      <recent name="C:\Users\pakle\IdeaProjects\onnx-rt\images" />
+      <recent name="C:\Users\pakle\IdeaProjects\onnx-rt\src\main\resources" />
+      <recent name="C:\Users\pakle\IdeaProjects\onnx-rt\src\main\java\dev\ahwar" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
