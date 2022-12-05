@@ -1,8 +1,5 @@
 package dev.ahwar;
 
-import ai.djl.huggingface.tokenizers.Encoding;
-import ai.djl.huggingface.tokenizers.HuggingFaceTokenizer;
-import ai.djl.util.Pair;
 import ai.onnxruntime.OnnxTensor;
 import ai.onnxruntime.OrtEnvironment;
 import ai.onnxruntime.OrtException;
@@ -10,27 +7,15 @@ import ai.onnxruntime.OrtSession;
 import ai.onnxruntime.OrtSession.Result;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Map;
-
-import static ai.djl.huggingface.tokenizers.HuggingFaceTokenizer.newInstance;
 
 public class Main {
 
-    static Pair<long[], long[]> inputIds_mask;
+    static long[] inputIds;
+    static long[] inputAttentionMask;
+    static Tokenizer tokenizer;
 
-    public static Pair<long[], long[]> encodeText(String inputText, String tokenizerJsonPath) throws IOException {
-        /*
-         * Encode the text according to tokenizer
-         * Returns encoded Ids
-         * */
-        try (HuggingFaceTokenizer tokenizer = newInstance(Paths.get(tokenizerJsonPath))) {
-            Encoding encoding = tokenizer.encode(inputText, true);
-            return new Pair<>(encoding.getIds(), encoding.getAttentionMask());
-        }
-    }
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         try {
             /*
@@ -57,27 +42,40 @@ public class Main {
 
             // Encode Text
             try {
-                inputIds_mask = encodeText("James is working at Nasa", "raw-files/tokenizer.json");
+                tokenizer = new Tokenizer("raw-files/tokenizer.json");
+                tokenizer.encode("James is working at Nasa");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
 
 
             /*
-             * Create dummy input and convert to OnnxTensor
+             * Calculate Inputs
+             * then convert them to OnnxTensor
              * */
+
+            // get Input Ids and Attention Mask
+            inputIds = tokenizer.getIds(); // get Input Ids
+            inputAttentionMask = tokenizer.getAttentionMask(); // get Attention mask
+
+
             // modify Encoded Ids according to the model requirement
             // from [input_ids] to [[input_ids]]
+            long[][] newInputIds = new long[1][inputIds.length];
+            System.arraycopy(inputIds, 0, newInputIds[0], 0, inputIds.length);
 
-            long[][] inputIds = new long[1][inputIds_mask.getKey().length];
-            System.arraycopy(inputIds_mask.getKey(), 0, inputIds[0], 0, inputIds_mask.getKey().length);
+
             // modify Attention Mask according to the model requirement
             // from [attention_mask] to [[attention_mask]]
-            long[][] attentionMask = new long[1][inputIds_mask.getValue().length];
-            System.arraycopy(inputIds_mask.getValue(), 0, attentionMask[0], 0, inputIds_mask.getValue().length);
+            long[][] newAttentionMask = new long[1][inputAttentionMask.length];
+            System.arraycopy(inputAttentionMask, 0, newAttentionMask[0], 0, inputAttentionMask.length);
+
+
             // create OnnxTensor
-            OnnxTensor idsTensor = OnnxTensor.createTensor(env, inputIds);
-            OnnxTensor maskTensor = OnnxTensor.createTensor(env, attentionMask);
+            OnnxTensor idsTensor = OnnxTensor.createTensor(env, newInputIds);
+            OnnxTensor maskTensor = OnnxTensor.createTensor(env, newAttentionMask);
+
+
             // map input Tensor according to model Input
             // key is layer name, and value is value you want to pass
             var model_inputs = Map.of("input_ids", idsTensor, "attention_mask", maskTensor);
@@ -86,13 +84,12 @@ public class Main {
             /*
              * Running the inference on the model
              * */
-            Result output = session.run(model_inputs);
+            Result result = session.run(model_inputs);
 
             /*
              * Handling the inference output
              * */
-            float[][][] output_1 = (float[][][]) output.get(0).getValue();
-            float[][] output_2 = (float[][]) output.get(1).getValue();
+            float[][][] logits = (float[][][]) result.get(0).getValue();
 
         } catch (OrtException e) {
             e.printStackTrace();
