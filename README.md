@@ -1,4 +1,4 @@
-# Running ONNX NLP Model using Java
+# Run HuggingFace NER (NLP) Model as Java using ONNX    
 
 
 ## Download files
@@ -8,16 +8,14 @@ These files are required to run the project
 1. ONNX model 
 2. `tokenizer.json` file
 
-**Download the model**  
+**Convert the model**  
 
+To convert HuggingFace NER model to ONNX Open this [Google Colaboratory Notebook](https://colab.research.google.com/drive/1kZx9XOnExVfPoAGHhHRUrdQnioiLloBW#revisionId=0BwKss6yztf4KS0NKaWRiQjc0RGRvQkd6ZFp3OUFhR1lTclBNPQ) run the code as below shown image and follow all the steps  
 
-Model used in this project (`RoBERTa-BASE`) was downloaded from this [link](https://github.com/onnx/models/raw/main/text/machine_comprehension/roberta/model/roberta-base-11.onnx)
+![run colab code cell](images/run colab.jpeg)
 
-Download the model from the link and save in `raw-files` directory
-
-
-Tokenzer file `tokenizer.json` was taken from this [huggingface repo](https://huggingface.co/roberta-base)  
-Download the `tokenizer.json` from the [link](https://huggingface.co/roberta-base/raw/main/tokenizer.json) and save in `raw-files` directory
+Tokenzer file `tokenizer.json` was taken from this [huggingface repo](https://huggingface.co/xlm-roberta-large-finetuned-conll03-english)  
+Download the `tokenizer.json` from the [link](https://huggingface.co/xlm-roberta-large-finetuned-conll03-english/raw/main/tokenizer.json) and save in `raw-files` directory
 
 
 ## Installation:

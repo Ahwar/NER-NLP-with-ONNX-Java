@@ -7,6 +7,7 @@ import ai.onnxruntime.OrtSession;
 import ai.onnxruntime.OrtSession.Result;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
 
 public class Main {
@@ -14,6 +15,47 @@ public class Main {
     static long[] inputIds;
     static long[] inputAttentionMask;
     static Tokenizer tokenizer;
+    static String persons = "";
+    static String locations = "";
+    static String organizations = "";
+    static String misc = "";
+
+    public static int findMaxIndex(float[] arr) {
+        /*
+         * find the index of maximum number in array
+         * reference_link: https://qr.ae/pr89bV
+         * */
+        int maxIndex = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > arr[maxIndex]) {
+                maxIndex = i;
+            }
+        }
+        return maxIndex;
+    }
+
+    public static void post(int class_, String token, String persons_,
+                            String locations_, String organizations_, String misc_) {
+    /*
+    seperates tokens into arrays according to class ids
+
+
+    below is the relation from class id to the label
+    "id2label": {
+    "0": "B-LOC",
+    "1": "B-MISC",
+    "2": "B-ORG",
+    "3": "I-LOC",
+    "4": "I-MISC",
+    "5": "I-ORG",
+    "6": "I-PER",
+    "7": "O"
+    * */
+        if (class_ == 6) persons = persons_ + token;
+        else if (class_ == 2 || class_ == 5) organizations = organizations_ + token;
+        else if (class_ == 3 || class_ == 0) locations = locations_ + token;
+        else if (class_ == 1 || class_ == 4) misc = misc_ + token;
+    }
 
     public static void main(String[] args) {
 
@@ -43,7 +85,7 @@ public class Main {
             // Encode Text
             try {
                 tokenizer = new Tokenizer("raw-files/tokenizer.json");
-                tokenizer.encode("James is working at Nasa");
+                tokenizer.encode("Ahwar wants to work at Google in london. EU rejected German call to boycott British lamb.");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -89,7 +131,29 @@ public class Main {
             /*
              * Handling the inference output
              * */
+            // get output results
             float[][][] logits = (float[][][]) result.get(0).getValue();
+            String[] tokens = tokenizer.getTokens(); // tokenize the text
+
+            for (int i = 0; i < logits[0].length; i++) {
+                try {
+                    // find class ids for all the tokens of the text
+                    // and separate them in the arrays
+                    post(findMaxIndex(logits[0][i]), tokens[i], persons, locations, organizations, misc);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
+
+            /*
+            * Showing the results
+            * */
+
+            String tokensSpecialChar = String.valueOf(tokenizer.getTokens()[1].charAt(0)); // word seperators in tokens
+            System.out.println("All persons in the text: " + Arrays.toString(persons.split(tokensSpecialChar)));
+            System.out.println("All Organizations in the text: " + Arrays.toString(organizations.split(tokensSpecialChar)));
+            System.out.println("All Locations in the text: " + Arrays.toString(locations.split(tokensSpecialChar)));
+            System.out.println("All Miscellanous entities in the text: " + Arrays.toString(misc.split(tokensSpecialChar)));
 
         } catch (OrtException e) {
             e.printStackTrace();

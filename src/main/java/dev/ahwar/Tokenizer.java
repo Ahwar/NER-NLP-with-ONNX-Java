@@ -6,13 +6,11 @@ import ai.djl.huggingface.tokenizers.HuggingFaceTokenizer;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-import static ai.djl.huggingface.tokenizers.HuggingFaceTokenizer.newInstance;
-
 public class Tokenizer {
 
     /*
-    * Class for Tokenization and
-    * */
+     * Class for Tokenization and encoding
+     * */
     private Encoding encoding;
     private final HuggingFaceTokenizer tokenizer;
 
@@ -20,7 +18,7 @@ public class Tokenizer {
         /*
          * Initialize tokenizer
          */
-        tokenizer = newInstance(Paths.get(tokenizerJsonPath));
+        tokenizer = HuggingFaceTokenizer.newInstance(Paths.get(tokenizerJsonPath));
     }
 
     public void encode(String inputText) {
@@ -39,8 +37,16 @@ public class Tokenizer {
 
     public long[] getAttentionMask() {
         /*
-         * get Attention mask from encoded tokens
+         * get Attention mask from encodings
          * */
         return encoding.getAttentionMask();
+    }
+
+    public String[] getTokens() {
+        /*
+         * get tokens from encodings
+         * */
+
+        return encoding.getTokens();
     }
 }
