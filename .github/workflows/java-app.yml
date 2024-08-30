@@ -72,11 +72,21 @@ jobs:
         uses: actions/download-artifact@v4.1.8
         with:
           name: onnx_model
-          path: raw-files # path to download the artifact to
+          path: raw-files/onnx # path to download the artifact to
           run-id: ${{ github.run_id }}
 
       - name: See artifact contents
         run: tree raw-files
+      - name: Download the tokenizer.json file
+        run: |
+          wget "https://huggingface.co/xlm-roberta-large-finetuned-conll03-english/resolve/main/tokenizer.json" \
+           -O raw-files/tokenizer.json
+      # Build the Java application with Gradle
+      - name: Build Gradle
+        run: ./gradlew build
+      # will run the application Main.java file
+      - name: Run Gradle
+        run: ./gradlew run 
 
   # This job is responsible for generating and submitting a dependency graph for the project.
   # Generates and submits a dependency graph, enabling Dependabot Alerts for all project dependencies.
