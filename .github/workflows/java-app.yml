@@ -4,7 +4,7 @@ name: Java application
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "g"]
   pull_request:
     branches: ["main"]
 
@@ -28,7 +28,7 @@ jobs:
       - name: Hugging Face Model to ONNX
         run: |
           # Convert Hugging Face Model to ONNX
-          python -m transformers.onnx --opset 16 --atol 0.005 --feature=token-classification --model=xlm-roberta-large-finetuned-conll03-english onnx_model/
+          python -m transformers.onnx --opset 16 --atol 0.005 --feature=token-classification --model=vitus9988/klue-roberta-base-ner-identified onnx_model/
 
       # Upload the ONNX model as an artifact
       - name: Upload ONNX model
