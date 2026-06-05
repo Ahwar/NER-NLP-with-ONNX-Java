@@ -49,3 +49,13 @@ Build the project using the button shown below.
 Open the `Main.java` file and click the play button as shown in the red box in the image below.
 
 ![how to run project](images/run-code.jpg)
+
+## Star History
+
+<a href="https://www.star-history.com/?repos=Ahwar%2FNER-NLP-with-ONNX-Java&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=Ahwar/NER-NLP-with-ONNX-Java&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=Ahwar/NER-NLP-with-ONNX-Java&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=Ahwar/NER-NLP-with-ONNX-Java&type=date&legend=top-left" />
+ </picture>
+</a>
