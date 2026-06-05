@@ -20,7 +20,7 @@ These files are required to run the project:
 
 ### Convert the ONNX Model
 
-To convert the Hugging Face NER model to ONNX, open this [Google Colaboratory Notebook](https://colab.research.google.com/drive/1kZx9XOnExVfPoAGHhHRUrdQnioiLloBW#revisionId=0BwKss6yztf4KS0NKaWRiQjc0RGRvQkd6ZFp3OUFhR1lTclBNPQ), run the code as shown in the image below, and follow all the steps.
+To convert the Hugging Face NER model to ONNX, open this [Google Colaboratory Notebook](https://colab.research.google.com/drive/1kZx9XOnExVfPoAGHhHRUrdQnioiLloBW#revisionId=0BwKss6yztf4KeTFwdHBrOWJMQVlvdUkyby9WaEt0LzVnbkdZPQ), run the code as shown in the image below, and follow all the steps.
 
 ![run colab code cell](images/run-colab.jpeg)
 
