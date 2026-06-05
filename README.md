@@ -1,5 +1,7 @@
 # Run HuggingFace NER (NLP) Model on Java using ONNX Runtime and DJL
 
+[![Java application](https://github.com/Ahwar/NER-NLP-with-ONNX-Java/actions/workflows/java-app.yml/badge.svg)](https://github.com/Ahwar/NER-NLP-with-ONNX-Java/actions/workflows/java-app.yml)
+
 A Natural Language Processing (NLP) Java application that detects `names`, `organizations`, and `locations` in a text by running Hugging Face's [Roberta NER model](https://huggingface.co/xlm-roberta-large-finetuned-conll03-english) using [ONNX Runtime](https://onnxruntime.ai/docs/get-started/with-java.html) and the [Deep Java Library](https://djl.ai/).
 
 ## Installation
