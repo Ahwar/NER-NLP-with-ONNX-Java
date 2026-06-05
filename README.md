@@ -32,6 +32,8 @@ After running one of the above codes, your ONNX model will be saved in the `onnx
 
 The tokenizer file `tokenizer.json` was taken from this [Hugging Face repository](https://huggingface.co/xlm-roberta-large-finetuned-conll03-english). Download the `tokenizer.json` from this [link](https://huggingface.co/xlm-roberta-large-finetuned-conll03-english/raw/main/tokenizer.json).
 
+Some times, the `tokenizer.json` file is created in onnx conversion process, In that case you can find it in `onnx/` folder.
+
 **Move Files**
 
 Copy the files created from the above steps into the `raw-files` directory as shown in the image below.
@@ -49,6 +51,47 @@ Build the project using the button shown below.
 Open the `Main.java` file and click the play button as shown in the red box in the image below.
 
 ![how to run project](images/run-code.jpg)
+
+## Run with Gradle
+
+You can build and run the project using the included Gradle wrapper. The Gradle wrapper (`gradlew`) allows you to build and run the project without installing Gradle system-wide.
+
+- **Build the application:**
+
+```bash
+./gradlew build
+```
+
+- **Run the application:**
+
+```bash
+./gradlew run
+```
+
+The `run` task will execute the `Main` class defined in the project.
+
+## Install Gradle (optional)
+
+If you want to install Gradle system-wide instead of using the wrapper, here are two common options. Using the Gradle wrapper is recommended for consistent builds.
+
+- **Install via SDKMAN (recommended):**
+
+```bash
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk install gradle
+gradle -v
+```
+
+- **Install on Debian/Ubuntu (may not be latest):**
+
+```bash
+sudo apt update
+sudo apt install gradle
+gradle -v
+```
+
+After installing Gradle, you can run `gradle build` and `gradle run` instead of using `./gradlew`.
 
 ## Star History
 
