@@ -28,7 +28,7 @@ jobs:
       - name: Hugging Face Model to ONNX
         run: |
           # Convert Hugging Face Model to ONNX
-          optimum-cli export onnx --opset 18 --atol 0.005 --task=token-classification --model=xlm-roberta-large-finetuned-conll03-english onnx/
+          optimum-cli export onnx --opset 18 --atol 0.005 --task=token-classification --model=xlm-roberta-large-finetuned-conll03-english onnx_model/
 
       # Upload the ONNX model as an artifact
       - name: Upload ONNX model
