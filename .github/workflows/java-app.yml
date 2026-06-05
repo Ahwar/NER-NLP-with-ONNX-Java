@@ -24,11 +24,11 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -q transformers[onnx] transformers[sentencepiece] torch
+          pip install optimum-onnx onnx onnxruntime -q
       - name: Hugging Face Model to ONNX
         run: |
           # Convert Hugging Face Model to ONNX
-          python -m transformers.onnx --opset 16 --atol 0.005 --feature=token-classification --model=xlm-roberta-large-finetuned-conll03-english onnx_model/
+          optimum-cli export onnx --opset 18 --atol 0.005 \ --task=token-classification \ --model=xlm-roberta-large-finetuned-conll03-english onnx/
 
       # Upload the ONNX model as an artifact
       - name: Upload ONNX model
